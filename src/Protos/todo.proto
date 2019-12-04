@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option csharp_namespace = "MessageServices";
+import "google/protobuf/empty.proto";
+
+package Todos;
+
+service Todo {
+	rpc AllTodoLists (google.protobuf.Empty) returns (TodoLists);
+}
+
+message TodoItem{
+	int64 Id = 1;
+	
+    int32 ListId = 2;
+
+    string Title = 3;
+
+    bool Done = 4;
+
+    int32 Priority = 5;
+
+    string Note = 6;
+}
+
+message TodoList {
+	int32 Id = 1;
+	string Title = 2;
+	repeated TodoItem items = 3;
+}
+
+message TodoLists{
+	repeated TodoList lists = 1;
+}
+
+message TodoListRequest{
+	int32 Id = 1;
+}
+
+message TodoItemRequest {
+	int64 Id = 1;
+}
