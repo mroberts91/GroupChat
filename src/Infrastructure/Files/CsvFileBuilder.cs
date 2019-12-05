@@ -1,11 +1,11 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Application.TodoLists.Queries.ExportTodos;
-using CleanArchitecture.Infrastructure.Files.Maps;
+﻿using GroupChat.Application.Common.Interfaces;
+using GroupChat.Application.TodoLists.Queries.ExportTodos;
+using GroupChat.Infrastructure.Files.Maps;
 using CsvHelper;
 using System.Collections.Generic;
 using System.IO;
 
-namespace CleanArchitecture.Infrastructure.Files
+namespace GroupChat.Infrastructure.Files
 {
     public class CsvFileBuilder : ICsvFileBuilder
     {

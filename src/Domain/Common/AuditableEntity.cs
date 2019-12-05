@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CleanArchitecture.Domain.Common
+namespace GroupChat.Domain.Common
 {
     public class AuditableEntity
     {

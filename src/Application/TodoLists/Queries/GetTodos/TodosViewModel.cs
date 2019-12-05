@@ -1,9 +1,9 @@
-﻿using CleanArchitecture.Domain.Enums;
+﻿using GroupChat.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CleanArchitecture.Application.TodoLists.Queries.GetTodos
+namespace GroupChat.Application.TodoLists.Queries.GetTodos
 {
     public class TodosViewModel
     {

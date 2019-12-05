@@ -1,8 +1,8 @@
-﻿using CleanArchitecture.Domain.Common;
-using CleanArchitecture.Domain.Enums;
+﻿using GroupChat.Domain.Common;
+using GroupChat.Domain.Enums;
 using System;
 
-namespace CleanArchitecture.Domain.Entities
+namespace GroupChat.Domain.Entities
 {
     public class TodoItem : AuditableEntity
     {

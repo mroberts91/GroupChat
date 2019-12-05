@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CleanArchitecture.Application.Common.Interfaces
+namespace GroupChat.Application.Common.Interfaces
 {
     public interface IDateTime
     {

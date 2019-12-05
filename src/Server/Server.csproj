@@ -1,16 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>5bb0afaf-2fa4-4b4e-8d0f-87a3fef2dbb4</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.25.0" />
     <PackageReference Include="MediatR" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Azure.SignalR" Version="1.2.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="Google.Protobuf" Version="3.11.1" />
     <PackageReference Include="Grpc.Tools" Version="2.25.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,8 +27,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="..\Protos\todo.proto" GrpcServices="Server" />
-    <Protobuf Include="..\Protos\greet.proto" GrpcServices="Server" />
+    <Protobuf Include="..\Protos\todo.proto" GrpcServices="Server">
+      <Link>Protos\todo.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\Protos\greet.proto" GrpcServices="Server">
+      <Link>Protos\greet.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\Protos\users.proto" GrpcServices="Server">
+      <Link>Protos\users.proto</Link>
+    </Protobuf>
   </ItemGroup>
 
 </Project>

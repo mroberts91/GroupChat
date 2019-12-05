@@ -1,5 +1,5 @@
 # Clean Architecture
-Updated version of the CleanArchitecture template from Jason Taylor
+Updated version of the GroupChat template from Jason Taylor
 https://github.com/JasonGT
 
 ## Updates

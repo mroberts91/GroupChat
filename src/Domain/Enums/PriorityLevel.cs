@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.Domain.Enums
+﻿namespace GroupChat.Domain.Enums
 {
     public enum PriorityLevel
     {

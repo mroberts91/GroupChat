@@ -1,8 +1,8 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Infrastructure.Files;
-using CleanArchitecture.Infrastructure.Identity;
-using CleanArchitecture.Infrastructure.Persistence;
-using CleanArchitecture.Infrastructure.Services;
+﻿using GroupChat.Application.Common.Interfaces;
+using GroupChat.Infrastructure.Files;
+using GroupChat.Infrastructure.Identity;
+using GroupChat.Infrastructure.Persistence;
+using GroupChat.Infrastructure.Services;
 using IdentityModel;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
@@ -19,7 +19,7 @@ using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace CleanArchitecture.Application
+namespace GroupChat.Application
 {
     public static class DependencyInjection
     {

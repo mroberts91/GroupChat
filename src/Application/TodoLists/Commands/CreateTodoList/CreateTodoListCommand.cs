@@ -1,10 +1,10 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Domain.Entities;
+﻿using GroupChat.Application.Common.Interfaces;
+using GroupChat.Domain.Entities;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CleanArchitecture.Application.TodoLists.Commands.CreateTodoList
+namespace GroupChat.Application.TodoLists.Commands.CreateTodoList
 {
     public partial class CreateTodoListCommand : IRequest<int>
     {

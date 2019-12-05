@@ -1,9 +1,9 @@
-﻿using CleanArchitecture.Domain.Common;
-using CleanArchitecture.Domain.Exceptions;
+﻿using GroupChat.Domain.Common;
+using GroupChat.Domain.Exceptions;
 using System;
 using System.Collections.Generic;
 
-namespace CleanArchitecture.Domain.ValueObjects
+namespace GroupChat.Domain.ValueObjects
 {
     public class AdAccount : ValueObject<AdAccount>
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CleanArchitecture.Infrastructure.Migrations
+namespace GroupChat.Infrastructure.Migrations
 {
     public partial class InitalCreate : Migration
     {

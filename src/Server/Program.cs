@@ -1,5 +1,5 @@
-using CleanArchitecture.Infrastructure.Identity;
-using CleanArchitecture.Infrastructure.Persistence;
+using GroupChat.Infrastructure.Identity;
+using GroupChat.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;

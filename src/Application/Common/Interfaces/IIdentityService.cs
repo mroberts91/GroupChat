@@ -1,14 +1,16 @@
-﻿using CleanArchitecture.Application.Common.Models;
+﻿using GroupChat.Application.Common.Models;
 using System.Threading.Tasks;
 
-namespace CleanArchitecture.Application
+namespace GroupChat.Application
 {
     public interface IIdentityService
     {
         Task<string> GetUserNameAsync(string userId);
 
-        Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password);
+        Task<(Result Result, string UserId)> CreateUserAsync(string userName, string email, string password);
 
         Task<Result> DeleteUserAsync(string userId);
+
+        Task<(Result Result, string UserId)> CreateExternalAuthUser(string username, string email);
     }
 }

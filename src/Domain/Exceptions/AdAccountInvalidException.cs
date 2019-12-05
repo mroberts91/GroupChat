@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CleanArchitecture.Domain.Exceptions
+namespace GroupChat.Domain.Exceptions
 {
     public class AdAccountInvalidException : Exception
     {

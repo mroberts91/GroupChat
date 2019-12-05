@@ -1,7 +1,7 @@
-﻿using CleanArchitecture.Domain.Common;
+﻿using GroupChat.Domain.Common;
 using System.Collections.Generic;
 
-namespace CleanArchitecture.Domain.Entities
+namespace GroupChat.Domain.Entities
 {
     public class TodoList : AuditableEntity
     {

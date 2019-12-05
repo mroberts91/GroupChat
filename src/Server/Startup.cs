@@ -4,10 +4,10 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using CleanArchitecture.Application;
-using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Infrastructure.Persistence;
-using CleanArchitecture.Infrastructure;
+using GroupChat.Application;
+using GroupChat.Application.Common.Interfaces;
+using GroupChat.Infrastructure.Persistence;
+using GroupChat.Infrastructure;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -18,6 +18,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Server.Services;
+using Server.Hubs;
+using GroupChat.Infrastructure.Identity;
 
 namespace Server
 {
@@ -36,10 +38,13 @@ namespace Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
+            //services.AddSignalR().AddAzureSignalR();
+
             services.AddApplication();
             services.AddInfrastructure(Configuration, Environment);
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
+            services.AddScoped<IIdentityService, IdentityService>();
 
             services.AddHttpContextAccessor();
 
@@ -84,17 +89,14 @@ namespace Server
 
             app.UseEndpoints(endpoints =>
             {
+                //endpoints.MapHub<ChatHub>("/chat");
                 endpoints.MapGrpcService<GreeterService>();
                 endpoints.MapGrpcService<TodoService>();
+                endpoints.MapGrpcService<UsersService>();
 
-                endpoints.MapGet("/generateJwtToken", context =>
+                endpoints.MapGet("/token", context =>
                 {
                     return context.Response.WriteAsync(GenerateJwtToken(context.Request.Query["name"], context.Request.Query["email"]));
-                });
-
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Communication with gRPC endpoints must be made through a gRPC client");
                 });
             });
         }
@@ -106,7 +108,8 @@ namespace Server
                 throw new InvalidOperationException("Name is not specified.");
             }
 
-            var claims = new[] { new Claim(ClaimTypes.Name, name), new Claim(ClaimTypes.Email, email) };
+            //var claims = new[] { new Claim(ClaimTypes.Name, name), new Claim(ClaimTypes.Email, email) };
+            var claims = new[] { new Claim("name", name), new Claim("email", email) };
             var credentials = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256);
             var token = new JwtSecurityToken("ExampleServer", "ExampleClients", claims, expires: DateTime.Now.AddSeconds(60), signingCredentials: credentials);
             return JwtTokenHandler.WriteToken(token);

@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+option csharp_namespace = "MessageServices";
+import "google/protobuf/empty.proto";
+
+package Users;
+
+service UserService {
+	rpc CreateUser (CreateRequest) returns (Result);
+    rpc CreateExternalUser (CreateExternalRequest) returns (Result);
+}
+
+message CreateRequest{
+    string Username = 1;
+
+    string Email = 2;
+
+    string Password = 3;
+}
+
+message CreateExternalRequest{
+    string Username = 1;
+
+    string Email = 2;
+}
+
+message Result {
+    bool Success = 1;
+    string UserID = 2
+    repeated Error Errors = 3;
+}
+
+message Error {
+    string Message = 1;
+}

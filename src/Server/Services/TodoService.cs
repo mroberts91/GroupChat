@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using CleanArchitecture.Application.TodoLists.Queries.GetTodos;
+using GroupChat.Application.TodoLists.Queries.GetTodos;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using MediatR;

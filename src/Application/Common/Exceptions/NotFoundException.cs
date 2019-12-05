@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CleanArchitecture.Application.Common.Exceptions
+namespace GroupChat.Application.Common.Exceptions
 {
     public class NotFoundException : Exception
     {

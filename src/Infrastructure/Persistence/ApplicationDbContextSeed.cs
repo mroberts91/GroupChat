@@ -1,13 +1,13 @@
-﻿using CleanArchitecture.Infrastructure.Identity;
+﻿using GroupChat.Infrastructure.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System.Threading.Tasks;
-using CleanArchitecture.Application.TodoLists.Commands.CreateTodoList;
-using CleanArchitecture.Application.TodoLists.Queries.GetTodos;
-using CleanArchitecture.Application.TodoItems.Commands.CreateTodoItem;
+using GroupChat.Application.TodoLists.Commands.CreateTodoList;
+using GroupChat.Application.TodoLists.Queries.GetTodos;
+using GroupChat.Application.TodoItems.Commands.CreateTodoItem;
 
-namespace CleanArchitecture.Infrastructure.Persistence
+namespace GroupChat.Infrastructure.Persistence
 {
     public static class ApplicationDbContextSeed
     {

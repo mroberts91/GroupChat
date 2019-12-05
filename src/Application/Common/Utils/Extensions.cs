@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CleanArchitecture.Application.Common.Utils
+namespace GroupChat.Application.Common.Utils
 {
     public static class Extensions
     {

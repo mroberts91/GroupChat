@@ -1,11 +1,11 @@
-﻿using CleanArchitecture.Application.Common.Exceptions;
-using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Domain.Entities;
+﻿using GroupChat.Application.Common.Exceptions;
+using GroupChat.Application.Common.Interfaces;
+using GroupChat.Domain.Entities;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CleanArchitecture.Application.TodoItems.Commands.UpdateTodoItem
+namespace GroupChat.Application.TodoItems.Commands.UpdateTodoItem
 {
     public partial class UpdateTodoItemCommand : IRequest
     {

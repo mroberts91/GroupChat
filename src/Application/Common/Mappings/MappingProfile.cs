@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace CleanArchitecture.Application.Common.Mappings
+namespace GroupChat.Application.Common.Mappings
 {
     public class MappingProfile : Profile
     {

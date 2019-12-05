@@ -1,10 +1,10 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
+﻿using GroupChat.Application.Common.Interfaces;
 using MediatR.Pipeline;
 using Microsoft.Extensions.Logging;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CleanArchitecture.Application.Common.Behaviours
+namespace GroupChat.Application.Common.Behaviours
 {
     public class RequestLogger<TRequest> : IRequestPreProcessor<TRequest>
     {
@@ -25,7 +25,7 @@ namespace CleanArchitecture.Application.Common.Behaviours
             var userId = _currentUserService.UserId;
             var userName = await _identityService.GetUserNameAsync(userId);
 
-            _logger.LogInformation("CleanArchitecture Request: {Name} {@UserId} {@UserName} {@Request}",
+            _logger.LogInformation("GroupChat Request: {Name} {@UserId} {@UserName} {@Request}",
                 requestName, userId, userName ,request);
         }
     }

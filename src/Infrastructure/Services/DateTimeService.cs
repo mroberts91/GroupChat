@@ -1,7 +1,7 @@
-﻿using CleanArchitecture.Application.Common.Interfaces;
+﻿using GroupChat.Application.Common.Interfaces;
 using System;
 
-namespace CleanArchitecture.Infrastructure.Services
+namespace GroupChat.Infrastructure.Services
 {
     public class DateTimeService : IDateTime
     {
