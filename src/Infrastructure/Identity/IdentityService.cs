@@ -1,8 +1,10 @@
 ﻿using GroupChat.Application;
 using GroupChat.Application.Common.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace GroupChat.Infrastructure.Identity
@@ -26,28 +28,38 @@ namespace GroupChat.Infrastructure.Identity
         }
         public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string email, string password)
         {
-            var user = new ApplicationUser
-            {
-                UserName = userName,
-                Email = email,
-            };
+            var user = new ApplicationUser { UserName = userName, Email = email };
 
             var result = await _userManager.CreateAsync(user, password);
 
             return (result.ToApplicationResult(), user.Id);
         }
 
-        public async Task<(Result Result, string UserId)> CreateExternalAuthUser(string username, string email)
+        public async Task<(string token, string userId)> CreateExternalAuthUser(string username, string email)
         {
-            var user = new ApplicationUser
+            var code = string.Empty;
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
             {
-                UserName = username,
-                Email = email,
-            };
+                
+                var foo = "Error loading external login information during confirmation.";
+            }
+            var user = new ApplicationUser { UserName = username, Email = email };
 
             var result = await _userManager.CreateAsync(user);
+            if (result.Succeeded)
+            {
+                result = await _userManager.AddLoginAsync(user, info);
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    var userId = await _userManager.GetUserIdAsync(user);
+                    code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                }
+            }
 
-            return (result.ToApplicationResult(), user.Id);
+            return (code, user.Id);
         }
 
         public async Task<Result> DeleteUserAsync(string userId)

@@ -11,6 +11,6 @@ namespace GroupChat.Application
 
         Task<Result> DeleteUserAsync(string userId);
 
-        Task<(Result Result, string UserId)> CreateExternalAuthUser(string username, string email);
+        Task<(string token, string userId)> CreateExternalAuthUser(string username, string email);
     }
 }

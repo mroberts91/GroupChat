@@ -38,7 +38,7 @@ namespace Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
-            //services.AddSignalR().AddAzureSignalR();
+            services.AddSignalR().AddAzureSignalR();
 
             services.AddApplication();
             services.AddInfrastructure(Configuration, Environment);
@@ -89,7 +89,7 @@ namespace Server
 
             app.UseEndpoints(endpoints =>
             {
-                //endpoints.MapHub<ChatHub>("/chat");
+                endpoints.MapHub<ChatHub>("/chat");
                 endpoints.MapGrpcService<GreeterService>();
                 endpoints.MapGrpcService<TodoService>();
                 endpoints.MapGrpcService<UsersService>();

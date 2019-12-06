@@ -9,5 +9,6 @@ namespace GroupChat.ClientCore.Interfaces
     public interface IUsersService
     {
         Task<Result> Register(string username, string email, string password);
+        Task<Result> RegisterExternalUser(string username, string email);
     }
 }

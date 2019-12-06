@@ -1,39 +1,5 @@
 ﻿@page "/"
-@using System.Web;
-@using GroupChat.ClientCore.Interfaces;
-@inject Microsoft.Extensions.Configuration.IConfiguration config;
-@inject IHttpClientFactory clientFactory;
-@inject IRpcServiceProvider rpcProvider;
 
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
-<button @onclick="Register">Register</button>
-
-@code{
-
-    protected override async Task OnInitializedAsync()
-    {
-        var baseUrl = config["Hubs:Url"];
-        //var url = $"{baseUrl}/token?name='Michael'&email='test@test.com'";
-        var request = new HttpRequestMessage
-        {
-            RequestUri = new Uri($"{baseUrl}/token?name={HttpUtility.UrlEncode("Michael")}&email={HttpUtility.UrlEncode("test@test.com")}"),
-            Method = HttpMethod.Get,
-            Version = new Version(2, 0)
-        };
-        var client = clientFactory.CreateClient();
-        var tokenResponse = await client.SendAsync(request);
-        tokenResponse.EnsureSuccessStatusCode();
-
-        var token = await tokenResponse.Content.ReadAsStringAsync();
-        Console.WriteLine();
-    }
-
-    async Task Register()
-    {
-        var userService = rpcProvider.UserService;
-        var result = await userService.Register("Michael2", "test2@test.com", "Pasword123#");
-        Console.WriteLine();
-    }
-}

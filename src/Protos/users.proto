@@ -26,7 +26,7 @@ message CreateExternalRequest{
 
 message Result {
     bool Success = 1;
-    string UserID = 2
+    string UserID = 2;
     repeated Error Errors = 3;
 }
 

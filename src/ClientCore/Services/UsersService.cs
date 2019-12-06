@@ -36,5 +36,27 @@ namespace GroupChat.ClientCore.Services
                 return result;
             }
         }
+
+        public async Task<Result> RegisterExternalUser(string username, string email)
+        {
+            var request = new CreateExternalRequest()
+            {
+                Email = email,
+                Username = username
+            };
+
+            try
+            {
+                return await CreateExternalUserAsync(request);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                var error = new Error() { Message = ex.Message };
+                var result = new Result() { Success = false };
+                result.Errors.Add(error);
+                return result;
+            }
+        }
     }
 }

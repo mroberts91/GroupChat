@@ -33,9 +33,9 @@ namespace Server.Services
             
             var resultMessage = new Result()
             {
-                Success = result.Result.Succeeded
+                Success = true
             };
-            resultMessage.Errors.AddRange(GetErrors(result.Result));
+            resultMessage.Errors.Add(new Error(){ Message = result.token });
             return resultMessage;
         }
 
