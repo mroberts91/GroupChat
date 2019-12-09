@@ -1,5 +1,25 @@
 ﻿@page "/"
-
+@attribute [Authorize]
+@inject AuthenticationStateProvider AuthenticationStateProvider;
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
+
+@code {        
+            
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            var name = user.Identity.Name;
+            System.Diagnostics.Debug.WriteLine($"{user.Identity.Name} is authenticated.");
+        }
+        else
+        {
+            System.Diagnostics.Debug.WriteLine("The user is NOT authenticated.");
+        }
+    }
+}

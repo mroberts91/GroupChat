@@ -17,6 +17,7 @@ namespace IdentityServer4.Quickstart.UI
                 Claims = 
                 {
                     new Claim(JwtClaimTypes.Name, "Alice Smith"),
+                    new Claim(ClaimTypes.Name, "Alice Smith"),
                     new Claim(JwtClaimTypes.GivenName, "Alice"),
                     new Claim(JwtClaimTypes.FamilyName, "Smith"),
                     new Claim(JwtClaimTypes.Email, "AliceSmith@email.com"),

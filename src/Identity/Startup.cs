@@ -11,6 +11,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using GroupChat.Identity.Users;
+using GroupChat.Identity.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace GroupChat.Identity
 {
@@ -27,6 +31,12 @@ namespace GroupChat.Identity
 
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddDbContext<ApplicationUserContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection"),
+                    b => b.MigrationsAssembly(typeof(ApplicationUserContext).Assembly.FullName)));
+
             services.AddControllersWithViews();
 
             // configures IIS out-of-proc settings (see https://github.com/aspnet/AspNetCore/issues/14882)
@@ -53,40 +63,27 @@ namespace GroupChat.Identity
                     options.Events.RaiseSuccessEvents = true;
                 })
                 .AddTestUsers(TestUsers.Users)
-                // this adds the config data from DB (clients, resources, CORS)
                 .AddConfigurationStore(options =>
                 {
                     options.ConfigureDbContext = builder => builder.UseSqlServer(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly));
                 })
-                // this adds the operational data from DB (codes, tokens, consents)
                 .AddOperationalStore(options =>
                 {
                     options.ConfigureDbContext = builder => builder.UseSqlServer(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly));
 
-                    // this enables automatic token cleanup. this is optional.
                     options.EnableTokenCleanup = true;
                 });
 
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
 
-            services.AddAuthentication()
-                //.AddGoogle(options =>
-                //{
-                //    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-
-                //    // register your IdentityServer with Google at https://console.developers.google.com
-                //    // enable the Google+ API
-                //    // set the redirect URI to http://localhost:5000/signin-google
-                //    options.ClientId = "copy client ID from Google here";
-                //    options.ClientSecret = "copy client secret from Google here";
-                //})
-                .AddTwitter(options =>
-                {
-                    options.ConsumerKey = Configuration["Authentication:Twitter:ConsumerAPIKey"];
-                    options.ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"];
-                });
+            services.AddAuthentication();
+            services.AddIdentityCore<IdentityUser>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationUserContext>();
+            services.AddScoped<IRegistrationService, RegistrationService>();
         }
+
 
         public void Configure(IApplicationBuilder app)
         {
@@ -96,6 +93,10 @@ namespace GroupChat.Identity
                 app.UseDatabaseErrorPage();
             }
 
+            app.UseCors(policy =>
+            {
+                policy.AllowAnyOrigin();
+            });
             app.UseStaticFiles();
 
             app.UseRouting();

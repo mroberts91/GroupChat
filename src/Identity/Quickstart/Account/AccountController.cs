@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using GroupChat.Identity.Interfaces;
+using GroupChat.Identity.Quickstart.Account;
 using IdentityModel;
 using IdentityServer4.Events;
 using IdentityServer4.Extensions;
@@ -33,12 +35,14 @@ namespace IdentityServer4.Quickstart.UI
         private readonly IClientStore _clientStore;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
         private readonly IEventService _events;
+        private readonly IRegistrationService _registrationService;
 
         public AccountController(
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
             IEventService events,
+            IRegistrationService registrationService,
             TestUserStore users = null)
         {
             // if the TestUserStore is not in DI, then we'll just use the global users collection
@@ -227,6 +231,27 @@ namespace IdentityServer4.Quickstart.UI
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Register([FromQuery]string returnUrl)
+        {
+            if (string.IsNullOrWhiteSpace(returnUrl))
+            {
+                return RedirectToAction("Error", "Home");
+            }
+            var vm = new RegisterViewModel()
+            {
+                ReturnUrl = returnUrl
+            };
+            return View(vm);
+        }
+
+        [HttpPost]
+        public IActionResult Register(RegisterViewModel vm)
+        {
+            System.Diagnostics.Debug.WriteLine($"Username: {vm.Username}, Email: {vm.Email}, Return URL: {vm.ReturnUrl}");
+            var foo = _registrationService.CreateUserAsync(vm.Username, vm.Email, vm.Password);
+            return Redirect(vm.ReturnUrl);
+        }
 
         /*****************************************/
         /* helper APIs for the AccountController */

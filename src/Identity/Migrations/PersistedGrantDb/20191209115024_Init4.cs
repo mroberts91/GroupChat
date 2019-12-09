@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GroupChat.Identity.Migrations.PersistedGrantDb
 {
-    public partial class Grants : Migration
+    public partial class Init4 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

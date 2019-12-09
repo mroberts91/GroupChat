@@ -1,0 +1,45 @@
+﻿@model GroupChat.Identity.Quickstart.Account.RegisterViewModel;
+
+<div class="register-page">
+    <div class="page-header">
+        <h1>Registration</h1>
+    </div>
+
+    <partial name="_ValidationSummary" />
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Local Login</h3>
+                </div>
+                <div class="panel-body">
+                    <form asp-route="Register" method="post">
+                        <input type="hidden" asp-for="ReturnUrl" />
+                        <fieldset>
+                            <div class="form-group">
+                                <label asp-for="Username"></label>
+                                <input class="form-control" placeholder="Username" asp-for="Username" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Email"></label>
+                                <input class="form-control" type="email" placeholder="Email" asp-for="Email">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Password"></label>
+                                <input id="initalPassword" type="password" class="form-control" placeholder="Password" asp-for="Password" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ConfirmPassword"></label>
+                                <input id="initalPassword" type="password" class="form-control" placeholder="Password" asp-for="ConfirmPassword" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary" type="submit" name="button" value="register">Register</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

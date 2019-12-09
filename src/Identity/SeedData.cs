@@ -31,10 +31,10 @@ namespace GroupChat.Identity
 
             using (var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                //scope.ServiceProvider.GetService<PersistedGrantDbContext>().Database.Migrate();
+                scope.ServiceProvider.GetService<PersistedGrantDbContext>().Database.Migrate();
 
                 var context = scope.ServiceProvider.GetService<ConfigurationDbContext>();
-                //context.Database.Migrate();
+                context.Database.Migrate();
                 EnsureSeedData(context);
             }
         }

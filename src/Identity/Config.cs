@@ -14,13 +14,14 @@ namespace GroupChat.Identity
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
+                new IdentityResources.Email(),
             };
 
 
         public static IEnumerable<ApiResource> Apis =>
             new ApiResource[]
             {
-                new ApiResource("api1", "My API #1")
+                new ApiResource("chatapi", "Group Chat API")
             };
 
 
@@ -36,51 +37,51 @@ namespace GroupChat.Identity
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
 
-                    AllowedScopes = { "api1" }
+                    AllowedScopes = { "chatapi" }
                 },
 
-                // MVC client using code flow + pkce
+                // Blazor client using code flow + pkce
                 new Client
                 {
-                    ClientId = "mvc",
-                    ClientName = "MVC Client",
+                    ClientId = "blazor",
+                    ClientName = "Blazor Client",
 
                     AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
                     RequirePkce = true,
                     ClientSecrets = { new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256()) },
-
                     RedirectUris = { "http://localhost:5003/signin-oidc" },
                     FrontChannelLogoutUri = "http://localhost:5003/signout-oidc",
                     PostLogoutRedirectUris = { "http://localhost:5003/signout-callback-oidc" },
-
                     AllowOfflineAccess = true,
-                    AllowedScopes = { "openid", "profile", "api1" }
+                    AlwaysSendClientClaims = true,
+                    AlwaysIncludeUserClaimsInIdToken = true,
+                    UpdateAccessTokenClaimsOnRefresh = true,
+                    AllowedScopes = { "openid", "profile", "email", "chatapi" },
                 },
-
                 // SPA client using code flow + pkce
-                new Client
-                {
-                    ClientId = "spa",
-                    ClientName = "SPA Client",
-                    ClientUri = "http://identityserver.io",
+                //new Client
+                //{
+                //    ClientId = "spa",
+                //    ClientName = "SPA Client",
+                //    ClientUri = "http://identityserver.io",
 
-                    AllowedGrantTypes = GrantTypes.Code,
-                    RequirePkce = true,
-                    RequireClientSecret = false,
+                //    AllowedGrantTypes = GrantTypes.Code,
+                //    RequirePkce = true,
+                //    RequireClientSecret = false,
 
-                    RedirectUris =
-                    {
-                        "http://localhost:5002/index.html",
-                        "http://localhost:5002/callback.html",
-                        "http://localhost:5002/silent.html",
-                        "http://localhost:5002/popup.html",
-                    },
+                //    RedirectUris =
+                //    {
+                //        "http://localhost:5002/index.html",
+                //        "http://localhost:5002/callback.html",
+                //        "http://localhost:5002/silent.html",
+                //        "http://localhost:5002/popup.html",
+                //    },
 
-                    PostLogoutRedirectUris = { "http://localhost:5002/index.html" },
-                    AllowedCorsOrigins = { "http://localhost:5002" },
+                //    PostLogoutRedirectUris = { "http://localhost:5002/index.html" },
+                //    AllowedCorsOrigins = { "http://localhost:5002" },
 
-                    AllowedScopes = { "openid", "profile", "api1" }
-                }
+                //    AllowedScopes = { "openid", "profile", "chatapi" }
+                //}
             };
     }
 }
