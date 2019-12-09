@@ -1,12 +1,13 @@
 ﻿@page "/"
-@attribute [Authorize]
+@using GroupChat.ClientCore.Interfaces;
 @inject AuthenticationStateProvider AuthenticationStateProvider;
+@inject IRpcServiceProvider  services;
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
 
 @code {        
-            
+
     protected override async Task OnInitializedAsync()
     {
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
@@ -20,6 +21,18 @@ Welcome to your new app.
         else
         {
             System.Diagnostics.Debug.WriteLine("The user is NOT authenticated.");
+        }
+
+        try
+        {
+            var userService = services.UserService;
+            var foo = await userService.Register("michael2", "m@m.com", "passowrd");
+            Console.WriteLine();
+        }
+        catch (Exception ex)
+        {
+
+            throw;
         }
     }
 }

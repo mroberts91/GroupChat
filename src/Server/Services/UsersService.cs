@@ -5,25 +5,27 @@ using System.Threading.Tasks;
 using GroupChat.Application;
 using Grpc.Core;
 using MessageServices;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Server.Services
 {
     public class UsersService : UserService.UserServiceBase
     {
         private readonly IIdentityService _identityService;
-        public UsersService(IIdentityService identityService)
+        public UsersService()
         {
-            _identityService = identityService;
         }
+
+        [Authorize]
         public override async Task<Result> CreateUser(CreateRequest request, ServerCallContext context)
         {
-            var result = await _identityService.CreateUserAsync(request.Username, request.Email, request.Password);
+            //var result = await _identityService.CreateUserAsync(request.Username, request.Email, request.Password);
            
             var resultMessage = new Result()
             {
-                Success = result.Result.Succeeded
+                Success = true
             };
-            resultMessage.Errors.AddRange(GetErrors(result.Result));
+            //resultMessage.Errors.AddRange(GetErrors(result.Result));
             return resultMessage;
         }
 

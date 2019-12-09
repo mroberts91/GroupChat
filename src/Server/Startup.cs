@@ -19,7 +19,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Server.Services;
 using Server.Hubs;
-using GroupChat.Infrastructure.Identity;
 
 namespace Server
 {
@@ -33,18 +32,17 @@ namespace Server
 
         public IConfiguration Configuration { get; }
         public IHostEnvironment Environment { get; }
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
-            services.AddSignalR().AddAzureSignalR();
+            //services.AddSignalR().AddAzureSignalR();
+            services.AddControllers();
 
             services.AddApplication();
-            services.AddInfrastructure(Configuration, Environment);
+            services.AddInfrastructure(Configuration);
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
-            services.AddScoped<IIdentityService, IdentityService>();
 
             services.AddHttpContextAccessor();
 
@@ -60,18 +58,13 @@ namespace Server
                 });
             });
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters =
-                        new TokenValidationParameters
-                        {
-                            ValidateAudience = false,
-                            ValidateIssuer = false,
-                            ValidateActor = false,
-                            ValidateLifetime = true,
-                            IssuerSigningKey = SecurityKey
-                        };
-                });
+                    .AddJwtBearer(options =>
+                    {
+                        var section = Configuration.GetSection("Authentication");
+                        options.Authority = section.GetValue<string>("Authority");
+                        options.RequireHttpsMetadata = section.GetValue<bool>("RequireHttps");
+                        options.Audience = section.GetValue<string>("Audience");
+                    });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -84,38 +77,19 @@ namespace Server
 
             app.UseRouting();
 
+            app.UseCors();
+
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<ChatHub>("/chat");
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                //endpoints.MapHub<ChatHub>("/chat");
                 endpoints.MapGrpcService<GreeterService>();
                 endpoints.MapGrpcService<TodoService>();
                 endpoints.MapGrpcService<UsersService>();
-
-                endpoints.MapGet("/token", context =>
-                {
-                    return context.Response.WriteAsync(GenerateJwtToken(context.Request.Query["name"], context.Request.Query["email"]));
-                });
             });
         }
-
-        private string GenerateJwtToken(string name, string email)
-        {
-            if (string.IsNullOrEmpty(name))
-            {
-                throw new InvalidOperationException("Name is not specified.");
-            }
-
-            //var claims = new[] { new Claim(ClaimTypes.Name, name), new Claim(ClaimTypes.Email, email) };
-            var claims = new[] { new Claim("name", name), new Claim("email", email) };
-            var credentials = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256);
-            var token = new JwtSecurityToken("ExampleServer", "ExampleClients", claims, expires: DateTime.Now.AddSeconds(60), signingCredentials: credentials);
-            return JwtTokenHandler.WriteToken(token);
-        }
-
-        private readonly JwtSecurityTokenHandler JwtTokenHandler = new JwtSecurityTokenHandler();
-        private readonly SymmetricSecurityKey SecurityKey = new SymmetricSecurityKey(Guid.NewGuid().ToByteArray());
     }
 }

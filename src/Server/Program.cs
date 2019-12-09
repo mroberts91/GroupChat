@@ -1,4 +1,3 @@
-using GroupChat.Infrastructure.Identity;
 using GroupChat.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.AspNetCore;
@@ -18,28 +17,7 @@ namespace Server
     {
         public static async Task Main(string[] args)
         {
-            var host = CreateHostBuilder(args).Build();
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-
-                try
-                {
-                    var context = services.GetRequiredService<ApplicationDbContext>();
-                    context.Database.Migrate();
-
-                    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-                    await ApplicationDbContextSeed.SeedAsync(userManager);
-                }
-                catch (Exception ex)
-                {
-                    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-
-                    logger.LogError(ex, "An error occurred while migrating or seeding the database.");
-                }
-            }
-
-            host.Run();
+            CreateHostBuilder(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

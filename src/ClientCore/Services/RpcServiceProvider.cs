@@ -20,7 +20,7 @@ namespace GroupChat.ClientCore.Services
         private GrpcChannel CreateServiceChannel()
         {
             var address = _config["Hubs:Url"];
-            return GrpcChannel.ForAddress(address);
+            return GrpcChannel.ForAddress("https://localhost:5001");
         }
     }
 
