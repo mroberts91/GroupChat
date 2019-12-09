@@ -78,9 +78,9 @@ namespace GroupChat.Identity
             builder.AddDeveloperSigningCredential();
 
             services.AddAuthentication();
-            services.AddIdentityCore<IdentityUser>()
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationUserContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                    .AddEntityFrameworkStores<ApplicationUserContext>();
+
             services.AddScoped<IRegistrationService, RegistrationService>();
         }
 

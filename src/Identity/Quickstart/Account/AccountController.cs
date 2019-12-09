@@ -53,6 +53,7 @@ namespace IdentityServer4.Quickstart.UI
             _clientStore = clientStore;
             _schemeProvider = schemeProvider;
             _events = events;
+            _registrationService = registrationService;
         }
 
         /// <summary>
@@ -234,23 +235,29 @@ namespace IdentityServer4.Quickstart.UI
         [HttpGet]
         public IActionResult Register([FromQuery]string returnUrl)
         {
-            if (string.IsNullOrWhiteSpace(returnUrl))
-            {
-                return RedirectToAction("Error", "Home");
-            }
-            var vm = new RegisterViewModel()
-            {
-                ReturnUrl = returnUrl
-            };
+            returnUrl ??= Url.Content("~/");
+            var vm = new RegisterViewModel() { ReturnUrl = returnUrl };
             return View(vm);
         }
 
         [HttpPost]
-        public IActionResult Register(RegisterViewModel vm)
+        public async Task<IActionResult> Register(RegisterViewModel vm)
         {
-            System.Diagnostics.Debug.WriteLine($"Username: {vm.Username}, Email: {vm.Email}, Return URL: {vm.ReturnUrl}");
-            var foo = _registrationService.CreateUserAsync(vm.Username, vm.Email, vm.Password);
-            return Redirect(vm.ReturnUrl);
+            if (ModelState.IsValid)
+            {
+                System.Diagnostics.Debug.WriteLine($"Username: {vm.Username}, Email: {vm.Email}, Return URL: {vm.ReturnUrl}");
+                var foo = await _registrationService.CreateUserAsync(vm.Username, vm.Email, vm.Password);
+                if (foo.Succeeded)
+                {
+                    return Redirect(vm.ReturnUrl);
+                }
+                foreach (var error in foo.Errors)
+                {
+                    ModelState.AddModelError(error.Code, error.Description);
+                }
+            }
+
+            return View(vm);
         }
 
         /*****************************************/
