@@ -85,6 +85,8 @@ namespace GroupChat.BlazorClient
 
             services.AddHttpContextAccessor();
             services.AddMvcCore();
+
+            services.AddScoped<ICurrentUserService,CurrentUserService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
