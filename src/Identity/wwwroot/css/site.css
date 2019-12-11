@@ -1,18 +1,48 @@
-﻿body {
+body {
   margin-top: 65px;
+}
+.navbar {
+  background-color: #576B95 !important;
+  color: #fff !important;
 }
 .navbar-header {
   position: relative;
   top: -4px;
 }
+.navbar-brand {
+  color: #fff;
+}
 .navbar-brand > .icon-banner {
   position: relative;
   top: -2px;
   display: inline;
+  height: 32px;
+}
+.navbar-nav li .dropdown-toggle {
+  color: #fff;
+}
+.nav > li > a:hover,
+.nav > li > a:focus {
+  text-decoration: none;
+  background-color: #286090;
+}
+.nav .open > a,
+.nav .open > a:hover,
+.nav .open > a:focus {
+  background-color: #286090;
+  border-color: #337ab7;
 }
 .icon {
   position: relative;
   top: -10px;
+}
+.footer {
+  height: 4em;
+  margin: 0 2%;
+}
+#iconsNotify {
+  display: flex;
+  justify-content: flex-end;
 }
 .logged-out iframe {
   display: none;

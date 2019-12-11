@@ -20,13 +20,12 @@ namespace Server.Services
         public override async Task<Result> CreateUser(CreateRequest request, ServerCallContext context)
         {
             //var result = await _identityService.CreateUserAsync(request.Username, request.Email, request.Password);
-           
             var resultMessage = new Result()
             {
                 Success = true
             };
             //resultMessage.Errors.AddRange(GetErrors(result.Result));
-            return resultMessage;
+            return await Task.FromResult(resultMessage);
         }
 
         public override async Task<Result> CreateExternalUser(CreateExternalRequest request, ServerCallContext context)
