@@ -28,6 +28,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Authentication;
 using System.IdentityModel.Tokens.Jwt;
+using GroupChat.ClientCore.Interfaces;
 
 namespace GroupChat.BlazorClient
 {
@@ -48,6 +49,7 @@ namespace GroupChat.BlazorClient
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddScoped<IRpcServiceProvider, RpcServiceProvider>();
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = "Cookies";
@@ -83,6 +85,8 @@ namespace GroupChat.BlazorClient
 
             services.AddHttpContextAccessor();
             services.AddMvcCore();
+
+            services.AddScoped<ICurrentUserService,CurrentUserService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

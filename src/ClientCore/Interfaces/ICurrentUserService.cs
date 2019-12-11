@@ -1,12 +1,13 @@
-﻿using System;
+﻿using GroupChat.ClientCore.Users;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GroupChat.ClientCore.Interfaces
 {
-    public interface IRpcServiceProvider
+    public interface ICurrentUserService
     {
-        Task<IUsersService> GetUserServiceAsync();
+        Task<AuthenticatedUser> CurrentUser();
     }
 }
