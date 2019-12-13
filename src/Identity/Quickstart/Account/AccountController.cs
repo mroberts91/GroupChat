@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using GroupChat.Identity.Interfaces;
+using GroupChat.Identity.Quickstart.Account;
 using IdentityModel;
 using IdentityServer4.Events;
 using IdentityServer4.Extensions;
@@ -15,6 +17,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace IdentityServer4.Quickstart.UI
@@ -33,12 +36,14 @@ namespace IdentityServer4.Quickstart.UI
         private readonly IClientStore _clientStore;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
         private readonly IEventService _events;
+        private readonly IRegistrationService _registrationService;
 
         public AccountController(
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
             IEventService events,
+            IRegistrationService registrationService,
             TestUserStore users = null)
         {
             // if the TestUserStore is not in DI, then we'll just use the global users collection
@@ -49,6 +54,7 @@ namespace IdentityServer4.Quickstart.UI
             _clientStore = clientStore;
             _schemeProvider = schemeProvider;
             _events = events;
+            _registrationService = registrationService;
         }
 
         /// <summary>
@@ -225,6 +231,34 @@ namespace IdentityServer4.Quickstart.UI
         public IActionResult AccessDenied()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Register([FromQuery]string returnUrl)
+        {
+            returnUrl = returnUrl is null ? Url.Content("~/") : WebUtility.UrlDecode(returnUrl);
+            var vm = new RegisterViewModel() { ReturnUrl = returnUrl };
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                System.Diagnostics.Debug.WriteLine($"Username: {vm.Username}, Email: {vm.Email}, Return URL: {vm.ReturnUrl}");
+                var foo = await _registrationService.CreateUserAsync(vm.Username, vm.Email, vm.Password);
+                if (foo.Succeeded)
+                {
+                    return Redirect(vm.ReturnUrl);
+                }
+                foreach (var error in foo.Errors)
+                {
+                    ModelState.AddModelError(error.Code, error.Description);
+                }
+            }
+
+            return View(vm);
         }
 
 

@@ -37,7 +37,8 @@ namespace GroupChat.BlazorClient.Controllers
             var authority = _config.GetSection("Authentication").GetValue<string>("Authority");
             var registerEndpoint = _config.GetSection("Authentication:Endpoints").GetValue<string>("Register");
             var registrationReturn = _config.GetSection("Authentication").GetValue<string>("RegistrationRedirect");
-            var redirectUrl = $"{authority}/{registerEndpoint}?returnUrl={Url.Content(registrationReturn)}";
+            var escapedRegistrationReturn = Uri.EscapeDataString(registrationReturn);
+            var redirectUrl = $"{authority}/{registerEndpoint}?returnUrl={Url.Content(escapedRegistrationReturn)}";
             return Redirect(redirectUrl);
         }
     }

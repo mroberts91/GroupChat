@@ -1,0 +1,26 @@
+﻿<div class="create-group">
+    <NavLink class="nav-link" href="#">
+        <span class="oi oi-plus" aria-hidden="true"></span> Create Group
+    </NavLink>
+</div>
+<div class="group-list">
+    @foreach (var group in Groups)
+    {
+        <div class="group-row-item">
+            <NavLink class="nav-link" href="#">
+                <span class="oi oi-people" aria-hidden="true"></span> @group
+            </NavLink>
+        </div>
+    }
+</div>
+@code {
+    public List<string> Groups { get; set; } = new List<string>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Groups.Add("Group 1");
+        Groups.Add("Group 2");
+        Groups.Add("Group 3");
+        Groups.Add("Group 4");
+    }
+}

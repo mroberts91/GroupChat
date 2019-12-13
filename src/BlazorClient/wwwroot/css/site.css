@@ -21,6 +21,7 @@ html, body {
 
 .aside{
    grid-area: sidebar;
+   border-right: 2px solid #2424
 }
 
 .main{
@@ -32,7 +33,7 @@ html, body {
     grid-area: footer;
     display: none;
     height: 100%;
-    background-color: #41454d;
+    background-color: #d7d7d7;
 }
 .btn-primary {
     color: #fff;
@@ -40,9 +41,31 @@ html, body {
     border-color: #1861ac;
 }
 
+.aside a.nav-link, .aside .nav-item, .aside nav-item a {
+    color: #242424;
+    border-radius: 4px;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    line-height: 3rem;
+}
+
+    .aside a.nav-link:hover, .nav-item:hover, nav-item a:hover {
+        background-color: rgba(0,0,0,0.1);
+        color: #242424;
+    }
 .top-row {
     background-color: #576B95;
     color: #fff !important;
+}
+
+.aside {
+    background-color: #fff;
+}
+.content {
+    padding-top: 1.1rem;
+    background-color: #fff;
+    color: #242424;
 }
 
 .top-row-auth > a, .main .top-row-auth .btn-link {
@@ -60,26 +83,24 @@ html, body {
     color: #fff !important;
 }
 
+.nav-left{
+    display: flex;
+}
+
+.nav-left a{
+    color: #fff;
+}
+
+
 #nav-logo {
     height: 32px;
 }
-.content {
-    padding-top: 1.1rem;
-    background-color: #1e2024;
-    color: #fff;
-}
+
 
 .table{
-    color: #fff;
+    color: #242424;
 }
 
-.aside {
-    background-color: #41454d;
-}
-
-    /*.sidebar .top-row {
-        background-color: rgba(0,0,0,0.4);
-    }*/
 
     .aside .navbar-brand {
         font-size: 1.1rem;
@@ -124,10 +145,6 @@ html, body {
                 color: white;
             }
 
-
-.navbar-toggler {
-    background-color: rgba(255, 255, 255, 0.1);
-}
 
 .valid.modified:not([type=checkbox]) {
     outline: 1px solid #26b050;
@@ -206,8 +223,7 @@ html, body {
     }
 
     .main > div {
-        padding-left: 2rem !important;
-        padding-right: 1.5rem !important;
+        padding: 1em;
     }
 
     .navbar-toggler {
@@ -217,4 +233,17 @@ html, body {
     .sidebar .collapse {
         display: block;
     }
+}
+
+.create-group {
+    height: 60px;
+    margin-top: 12px;
+}
+
+.group-list{
+
+}
+
+.group-row-item{
+
 }
