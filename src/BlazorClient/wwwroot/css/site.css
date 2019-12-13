@@ -177,14 +177,19 @@ html, body {
     top: 0.5rem;
 }
 
+.top-row-auth.auth {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
+}
+
 @media (max-width: 767.98px) {
     .main .top-row:not(.auth) {
         display: none;
     }
 
-    .main .top-row-auth.auth {
-        justify-content: space-between;
-    }
+   
 
     .main .top-row a, .main .top-row .btn-link {
         margin-left: 0;
