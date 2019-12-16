@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GroupChat.ClientCore.Common.ValueObjects;
+using System;
 using System.Collections.Generic;
 using System.Text;
 

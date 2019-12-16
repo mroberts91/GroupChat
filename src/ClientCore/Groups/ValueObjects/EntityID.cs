@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GroupChat.ClientCore.Users.ValueObjects
+namespace GroupChat.ClientCore.Groups.ValueObjects
 {
-    public class AccessToken : ValueObject<AccessToken>
+    public class EntityID : ValueObject<EntityID>
     {
         private readonly string _value;
-        public AccessToken(string value)
+        public EntityID(string value)
         {
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
@@ -25,19 +25,19 @@ namespace GroupChat.ClientCore.Users.ValueObjects
             return true;
         }
 
-        public static bool TryParse(string candidate, out AccessToken accessToken)
+        public static bool TryParse(string candidate, out EntityID entityId)
         {
-            accessToken = null;
+            entityId = null;
             if (string.IsNullOrWhiteSpace(candidate))
                 return false;
 
-            accessToken = new AccessToken(candidate.Trim());
+            entityId = new EntityID(candidate.Trim());
             return true;
         }
 
-        public static implicit operator string(AccessToken accessToken)
+        public static implicit operator string(EntityID entityId)
         {
-            return accessToken._value;
+            return entityId._value;
         }
 
         public override string ToString()

@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+option csharp_namespace = "MessageServices";
+//import "google/protobuf/empty.proto";
+
+package Notify;
+
+service NotifyService {
+	rpc MonitorEntityUpdates (EntityIdentifier) returns (stream EntityIdentifier);
+}
+
+message EntityIdentifier{
+    string EntityID = 1;
+}

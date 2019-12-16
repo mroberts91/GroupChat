@@ -9,6 +9,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GroupChat.ClientCore", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GroupChat.BlazorClient", "src\BlazorClient\GroupChat.BlazorClient.csproj", "{E5837B44-3E3D-4761-A01F-858B54A1E3A1}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GroupChat.Notifications", "src\Notifications\GroupChat.Notifications.csproj", "{A339C2BA-2287-4E45-A5D1-59DA3A7BC23D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{2B344E4D-8D3C-4D5F-B9D1-55E7DC51C5C6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GroupChat.ClientCore.Tests", "tests\GroupChat.ClientCore.Tests\GroupChat.ClientCore.Tests.csproj", "{181B5851-0DAE-4DA5-B0D2-1F20F441168E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Protos", "Protos", "{E3E329AD-AD47-442E-B17C-DC72B2CED528}"
+	ProjectSection(SolutionItems) = preProject
+		src\Protos\greet.proto = src\Protos\greet.proto
+		src\Protos\todo.proto = src\Protos\todo.proto
+		src\Protos\users.proto = src\Protos\users.proto
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +56,30 @@ Global
 		{E5837B44-3E3D-4761-A01F-858B54A1E3A1}.Release|x64.Build.0 = Release|Any CPU
 		{E5837B44-3E3D-4761-A01F-858B54A1E3A1}.Release|x86.ActiveCfg = Release|Any CPU
 		{E5837B44-3E3D-4761-A01F-858B54A1E3A1}.Release|x86.Build.0 = Release|Any CPU
+		{A339C2BA-2287-4E45-A5D1-59DA3A7BC23D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A339C2BA-2287-4E45-A5D1-59DA3A7BC23D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A339C2BA-2287-4E45-A5D1-59DA3A7BC23D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A339C2BA-2287-4E45-A5D1-59DA3A7BC23D}.Debug|x64.Build.0 = Debug|Any CPU
+		{A339C2BA-2287-4E45-A5D1-59DA3A7BC23D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A339C2BA-2287-4E45-A5D1-59DA3A7BC23D}.Debug|x86.Build.0 = Debug|Any CPU
+		{A339C2BA-2287-4E45-A5D1-59DA3A7BC23D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A339C2BA-2287-4E45-A5D1-59DA3A7BC23D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A339C2BA-2287-4E45-A5D1-59DA3A7BC23D}.Release|x64.ActiveCfg = Release|Any CPU
+		{A339C2BA-2287-4E45-A5D1-59DA3A7BC23D}.Release|x64.Build.0 = Release|Any CPU
+		{A339C2BA-2287-4E45-A5D1-59DA3A7BC23D}.Release|x86.ActiveCfg = Release|Any CPU
+		{A339C2BA-2287-4E45-A5D1-59DA3A7BC23D}.Release|x86.Build.0 = Release|Any CPU
+		{181B5851-0DAE-4DA5-B0D2-1F20F441168E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{181B5851-0DAE-4DA5-B0D2-1F20F441168E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{181B5851-0DAE-4DA5-B0D2-1F20F441168E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{181B5851-0DAE-4DA5-B0D2-1F20F441168E}.Debug|x64.Build.0 = Debug|Any CPU
+		{181B5851-0DAE-4DA5-B0D2-1F20F441168E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{181B5851-0DAE-4DA5-B0D2-1F20F441168E}.Debug|x86.Build.0 = Debug|Any CPU
+		{181B5851-0DAE-4DA5-B0D2-1F20F441168E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{181B5851-0DAE-4DA5-B0D2-1F20F441168E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{181B5851-0DAE-4DA5-B0D2-1F20F441168E}.Release|x64.ActiveCfg = Release|Any CPU
+		{181B5851-0DAE-4DA5-B0D2-1F20F441168E}.Release|x64.Build.0 = Release|Any CPU
+		{181B5851-0DAE-4DA5-B0D2-1F20F441168E}.Release|x86.ActiveCfg = Release|Any CPU
+		{181B5851-0DAE-4DA5-B0D2-1F20F441168E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +87,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{3CA46520-BE89-4C6D-A446-160A6B34C99F} = {72D064CD-F674-4021-9FCC-20B424FF83C0}
 		{E5837B44-3E3D-4761-A01F-858B54A1E3A1} = {72D064CD-F674-4021-9FCC-20B424FF83C0}
+		{A339C2BA-2287-4E45-A5D1-59DA3A7BC23D} = {72D064CD-F674-4021-9FCC-20B424FF83C0}
+		{181B5851-0DAE-4DA5-B0D2-1F20F441168E} = {2B344E4D-8D3C-4D5F-B9D1-55E7DC51C5C6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6D4F4C7-7C88-4B3B-B0EE-8D5DE657DBBA}

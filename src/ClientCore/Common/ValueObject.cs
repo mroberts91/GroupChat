@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace GroupChat.ClientCore.Users.ValueObjects
+namespace GroupChat.ClientCore.Common.ValueObjects
 {
     public abstract class ValueObject<TObject> : IEquatable<TObject> where TObject : class
     {

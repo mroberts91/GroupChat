@@ -22,7 +22,8 @@ namespace GroupChat.ClientCore.Services
         public async Task<IUsersService> GetUserServiceAsync ()
         {
             return new UsersService(await CreateServiceChannel());
-        } 
+        }
+        
 
         private async Task<GrpcChannel> CreateServiceChannel()
         {
