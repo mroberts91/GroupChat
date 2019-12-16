@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{72D064CD-F67
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GroupChat.ClientCore", "src\ClientCore\GroupChat.ClientCore.csproj", "{3CA46520-BE89-4C6D-A446-160A6B34C99F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroupChat.BlazorClient", "src\BlazorClient\GroupChat.BlazorClient.csproj", "{E5837B44-3E3D-4761-A01F-858B54A1E3A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GroupChat.BlazorClient", "src\BlazorClient\GroupChat.BlazorClient.csproj", "{E5837B44-3E3D-4761-A01F-858B54A1E3A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
