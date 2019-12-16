@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GroupChat.Notifications.Messages
+namespace GroupChat.Notifications.Interfaces
 {
     public interface IEntityStateNotification<TKey>
     {

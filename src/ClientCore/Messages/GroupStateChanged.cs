@@ -1,5 +1,5 @@
 ﻿using GroupChat.ClientCore.Groups.ValueObjects;
-using GroupChat.Notifications.Messages;
+using GroupChat.Notifications.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;

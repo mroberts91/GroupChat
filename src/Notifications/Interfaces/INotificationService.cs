@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Channels;
+using System.Threading.Tasks;
 
 namespace GroupChat.Notifications.Interfaces
 {
-    public interface INotificationService<TMessage>
+    public interface INotificationService
     {
-        Channel<TMessage> NotificationChannel { get; }
+        ChannelReader<IEntityStateNotification<string>> Subscribe();
     }
 }

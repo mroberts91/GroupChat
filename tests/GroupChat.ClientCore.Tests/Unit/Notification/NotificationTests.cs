@@ -18,15 +18,5 @@ namespace GroupChat.ClientCore.Tests.Unit.Notification
             var message = new GroupStateChanged(validId);
             message.ValidState.ShouldBeTrue();
         }
-
-        [Fact]
-        public void GroupStateChanged_InvalidState()
-        {
-            EntityID.TryParse("entityId", out EntityID validId);
-            // Somewhere we lost the entity id.
-            validId = null;
-            var message = new GroupStateChanged(validId);
-            message.ValidState.ShouldBeFalse();
-        }
     }
 }

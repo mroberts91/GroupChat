@@ -4,36 +4,36 @@ using System.Text;
 using System.Threading;
 using System.Threading.Channels;
 using System.Threading.Tasks;
-using GroupChat.Notifications.Messages;
+using GroupChat.Notifications.Interfaces;
 using Grpc.Core;
 using Grpc.Net.Client;
 using MessageServices;
 
 namespace GroupChat.Notifications.Services
 {
-    public class EntityNotificationService
+    public class EntityNotificationService : INotificationService
     {
-        private readonly Channel<IEntityStateNotification<string>> NotificationChannel;
+        private readonly Channel<IEntityStateNotification<string>> _notificationChannel;
+        private readonly IEntityNotificationDataStream _dataStream;
         private readonly ChannelWriter<IEntityStateNotification<string>> writer;
         private readonly string _entityId;
-        private readonly NotifyService.NotifyServiceClient _client;
-        public EntityNotificationService(GrpcChannel channel, string entityId)
+        public EntityNotificationService(IEntityNotificationDataStream dataStream, string entityId)
         {
-            _client = new NotifyService.NotifyServiceClient(channel);
             _entityId = entityId;
-            NotificationChannel = Channel.CreateUnbounded<IEntityStateNotification<string>>(new UnboundedChannelOptions
+            _dataStream = dataStream;
+            _notificationChannel = Channel.CreateUnbounded<IEntityStateNotification<string>>(new UnboundedChannelOptions
             {
                AllowSynchronousContinuations = true,
                SingleReader = true,
                SingleWriter = true
             });
-            writer = NotificationChannel.Writer;
+            writer = _notificationChannel.Writer;
+            InitStream();
         }
 
         private async Task InitStream()
         {
-            using var stream = _client.MonitorEntityUpdates(new EntityIdentifier { EntityID = _entityId }, cancellationToken: default);
-            await foreach (var update in stream.ResponseStream.ReadAllAsync())
+            await foreach (var update in _dataStream.ReadAllAsync(_entityId))
             {
                 await writer.WriteAsync(new EntityNotificationMessage<string>
                 {
@@ -44,9 +44,8 @@ namespace GroupChat.Notifications.Services
         
         public ChannelReader<IEntityStateNotification<string>> Subscribe()
         {
-            return NotificationChannel.Reader;
+            return _notificationChannel.Reader;
         }
-        
     }
 
     internal class EntityNotificationMessage<TKey> : IEntityStateNotification<TKey>
@@ -54,7 +53,5 @@ namespace GroupChat.Notifications.Services
         public TKey EntityIdentifier { get; set; }
 
         public bool ValidState => EntityIdentifier != null;
-
-
     }
 }
