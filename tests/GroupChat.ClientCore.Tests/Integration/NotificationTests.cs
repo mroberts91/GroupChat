@@ -4,8 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
+using Castle.Core.Configuration;
+using GroupChat.ClientCore.Interfaces;
+using GroupChat.ClientCore.Services;
 using GroupChat.Notifications.Interfaces;
 using MessageServices;
+using Microsoft.AspNetCore.Http;
 using Moq;
 using Shouldly;
 using Xunit;
@@ -14,7 +18,6 @@ namespace GroupChat.ClientCore.Tests.Integration
 {
     public class NotificationTests : IDisposable
     {
-
         [Fact]
         public async Task RecieveNotificationAsync()
         {
@@ -30,11 +33,12 @@ namespace GroupChat.ClientCore.Tests.Integration
             var iterations = 10;
             Random random = new Random();
             var entityId = random.Next().ToString();
-            var service = new NotificationService(new NotificationDataStream(){iterations = iterations }, entityId);
+            var service = new NotificationService(new NotificationDataStream(){Iterations = iterations }, entityId);
             var reader = service.Subscribe();
             await foreach (var message in reader.ReadAllAsync())
             {
                 messages.Add(message.EntityIdentifier);
+                System.Diagnostics.Debug.WriteLine(message.EntityIdentifier);
             }
 
             messages.Count.ShouldBe(iterations);
@@ -49,10 +53,10 @@ namespace GroupChat.ClientCore.Tests.Integration
 
     internal class NotificationDataStream : IEntityNotificationDataStream
     {
-        public int iterations { get; set; }
+        public int Iterations { get; set; }
         public async IAsyncEnumerable<EntityIdentifier> ReadAllAsync(string entityId)
         {
-            for (int i = 0; i < iterations; i++)
+            for (int i = 0; i < Iterations; i++)
             {
                 await Task.Delay(500);
                 yield return new EntityIdentifier()

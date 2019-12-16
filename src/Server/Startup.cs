@@ -89,6 +89,7 @@ namespace Server
                 endpoints.MapGrpcService<GreeterService>();
                 endpoints.MapGrpcService<TodoService>();
                 endpoints.MapGrpcService<UsersService>();
+                endpoints.MapGrpcService<NotificationService>();
             });
         }
     }
